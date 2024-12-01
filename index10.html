@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My First Webpage</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: rgba(239, 239, 239, 0.704);
+    }
+
+    video, canvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 20px;
+        width: 80%;
+    }
+
+    .navigation a {
+        text-decoration: none;
+        font-size: 16px;
+        padding: 10px 25px;
+        background-color: #de8546;
+        color: white;
+        border-radius: 20px;
+    }
+
+    h2, h3 {
+        text-align: center;
+    }
+
+    .text-section {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: red;  /* Changed color to red */
+        font-size: 18px;
+        text-align: center;
+        z-index: 1;
+    }
+
+    /* Button styling */
+    .button-container {
+        position: absolute;
+        bottom: 80px;
+        z-index: 1;
+    }
+
+    .start-camera-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #de8546;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+
+
+<!-- Text Content -->
+<div class="text-section">
+    <p>Dzhumanazarov Nurseit</p>
+    <p>EXAMPLE 12</p>
+</div>
+
+<!-- Button to Start Camera -->
+<div class="button-container">
+    <button class="start-camera-btn" onclick="startCamera()">Turn On Camera</button>
+</div>
+
+<video id="video" autoplay playsinline muted></video>
+<canvas id="canvas"></canvas>
+
+<div class="navigation">
+    <a href="index9.html">Previous</a>
+    <a href="index11.html">Next</a>
+</div>
+
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const bunnyEars = new Image();
+    const dogNose = new Image();
+
+    // Bunny ears and nose overlay images (can replace with other links)
+    bunnyEars.src = 'https://i.imgur.com/3VZFlOZ.png'; // Bunny ears overlay
+    dogNose.src = 'https://i.imgur.com/FQtpD7C.png';  // Dog nose overlay
+
+    // Function to start camera when button is clicked
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.play();
+                document.querySelector('.start-camera-btn').style.display = 'none'; // Hide the button once camera is on
+            })
+            .catch(err => {
+                console.error('Error accessing webcam:', err);
+                alert("Please allow camera access.");
+            });
+    }
+
+    video.addEventListener('loadeddata', () => {
+        // Set canvas size to match video dimensions
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+    });
+
+    function drawOverlay() {
+        // Draw the video on canvas
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Check if images are loaded before drawing overlays
+        if (bunnyEars.complete && dogNose.complete) {
+            // Draw bunny ears (position at the top center of the face)
+            const earWidth = 150;
+            const earHeight = 100;
+            context.drawImage(bunnyEars, canvas.width / 2 - earWidth / 2, 50, earWidth, earHeight);
+
+            // Draw dog nose (position at the bottom center of the face)
+            const noseWidth = 50;
+            const noseHeight = 50;
+            context.drawImage(dogNose, canvas.width / 2 - noseWidth / 2, canvas.height / 2, noseWidth, noseHeight);
+        }
+
+        requestAnimationFrame(drawOverlay);  // Continuously redraw
+    }
+
+    bunnyEars.onload = () => {
+        drawOverlay();
+    };
+
+    dogNose.onload = () => {
+        drawOverlay();
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #4CAF50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas {
+            display: block;
+            margin: auto;
+            background-color: #333;
+        }
+
+        .text {
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        /* Styling for the footer section */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .footer p {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 25px;
+            background-color: #de8546;
+            color: white;
+            border-radius: 20px;
+            margin: 0 10px;
+        }
+
+    </style>
+  <center> <h1> Nurseit Dzhumanazarov 18 Exercise</h1>  </center><br>
+   
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+<div class="footer">
+    <p> Nurseit Dzhumanazrov</p>
+    <p>18 Exercise</p>
+    <div class="navigation">
+        <br>
+        <a href="index17.html">Previous</a>
+        <a href="index19.html">Next</a>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 600;
+
+    // Car Properties
+    let carWidth = 50;
+    let carHeight = 90;
+    let carX = canvas.width / 2 - carWidth / 2;
+    let carY = canvas.height - carHeight - 10;
+    let carSpeed = 3;  // Slower car speed
+    let carMovingLeft = false;
+    let carMovingRight = false;
+
+    // Obstacle Properties
+    let obstacleWidth = 50;
+    let obstacleHeight = 90;
+    let obstacleSpeed = 2;  // Slower falling speed of obstacles
+    let obstacles = [];
+
+    // Game Score and Controls
+    let score = 0;
+
+    // Key event listeners
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') {
+            carMovingLeft = true;
+        }
+        if (event.key === 'ArrowRight') {
+            carMovingRight = true;
+        }
+    });
+
+    document.addEventListener('keyup', function (event) {
+        if (event.key === 'ArrowLeft') {
+            carMovingLeft = false;
+        }
+        if (event.key === 'ArrowRight') {
+            carMovingRight = false;
+        }
+    });
+
+    // Function to draw the car
+    function drawCar() {
+        ctx.fillStyle = '#FF0000'; // Car color
+        ctx.fillRect(carX, carY, carWidth, carHeight);
+    }
+
+    // Function to create and draw obstacles
+    function drawObstacles() {
+        for (let i = 0; i < obstacles.length; i++) {
+            ctx.fillStyle = '#0000FF'; // Obstacle color
+            ctx.fillRect(obstacles[i].x, obstacles[i].y, obstacleWidth, obstacleHeight);
+        }
+    }
+
+    // Function to update the game state
+    function update() {
+        // Clear the canvas for each new frame
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the car
+        drawCar();
+
+        // Move the car left or right
+        if (carMovingLeft && carX > 0) {
+            carX -= carSpeed;
+        }
+        if (carMovingRight && carX + carWidth < canvas.width) {
+            carX += carSpeed;
+        }
+
+        // Add new obstacles (slower rate)
+        if (Math.random() < 0.01) {
+            let x = Math.random() * (canvas.width - obstacleWidth);
+            obstacles.push({ x: x, y: -obstacleHeight });
+        }
+
+        // Update obstacles' positions
+        for (let i = 0; i < obstacles.length; i++) {
+            obstacles[i].y += obstacleSpeed;
+
+            // Check for collision with the car
+            if (
+                obstacles[i].x < carX + carWidth &&
+                obstacles[i].x + obstacleWidth > carX &&
+                obstacles[i].y < carY + carHeight &&
+                obstacles[i].y + obstacleHeight > carY
+            ) {
+                alert("Game Over! Score: " + score);
+                resetGame();
+                break;
+            }
+
+            // Remove obstacles that are off-screen
+            if (obstacles[i].y > canvas.height) {
+                obstacles.splice(i, 1);
+                i--;
+                score++;
+            }
+        }
+
+        // Draw obstacles
+        drawObstacles();
+
+        // Draw score
+        ctx.fillStyle = "white";
+        ctx.font = "20px Arial";
+        ctx.fillText("Score: " + score, 10, 30);
+
+        // Call update again to create a loop
+        requestAnimationFrame(update);
+    }
+
+    // Function to reset the game
+    function resetGame() {
+        carX = canvas.width / 2 - carWidth / 2;
+        carY = canvas.height - carHeight - 10;
+        obstacles = [];
+        score = 0;
+        update();
+    }
+
+    // Start the game
+    update();
+</script>
+
+</body>
+</html>

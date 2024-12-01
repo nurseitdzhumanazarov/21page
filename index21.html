@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> My First Webpage </title>
+    <style>
+
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #response {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #imageResult {
+            margin-top: 20px;
+            max-width: 500px;
+            display: none;
+        }
+
+        .game-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .game-container input {
+            width: 60px;
+            margin: 5px;
+        }
+
+        .navigation {
+            margin-top: 20px;
+        }
+
+        .navigation a {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        .navigation a:hover {
+            background-color: #a06c45;
+        }
+    </style>
+    <h1>Nurseit Dzhumanazarov  </h1> <br>
+    <UL>21  Exercise</UL>
+</head>
+<body>
+
+<div class="container">
+    <h1>Welcome to Interactive Knowledge Base</h1>
+    <input type="text" id="userInput" placeholder="Ask a question or request something..." />
+    <button onclick="processInput()">Submit</button>
+
+    <div id="response"></div>
+    <img id="imageResult" alt="Requested Image" />
+    <div class="game-container" id="gameContainer">
+        <p>Guess the number between 1 and 10:</p>
+        <input type="number" id="guessInput" />
+        <button onclick="checkGuess()">Submit Guess</button>
+        <p id="gameResult"></p>
+    </div>
+
+    <div class="navigation">
+        <a href="index20.html"="navigate('previous')">Previous</a>
+        <a href="index1.html"="navigate('next')">Next</a>
+    </div>
+</div>
+
+<script>
+    // Process user input and display responses
+    function processInput() {
+        const userInput = document.getElementById('userInput').value.toLowerCase();
+        const response = document.getElementById('response');
+        const imageElement = document.getElementById('imageResult');
+        const gameContainer = document.getElementById('gameContainer');
+        const gameResult = document.getElementById('gameResult');
+        
+        // Handle different cases based on user input
+        if (userInput.includes("weather")) {
+            response.textContent = "It's sunny today!";
+        } else if (userInput.includes("fun fact")) {
+            response.textContent = "Did you know? Honey never spoils!";
+        } else if (userInput.includes("image") || userInput.includes("show me")) {
+            fetchImage(userInput);
+        } else if (userInput.includes("game")) {
+            startGame();
+        } else {
+            response.textContent = "Sorry, I don't understand. Try asking something else!";
+        }
+    }
+
+    // Fetch image based on user input
+    function fetchImage(query) {
+        const imageElement = document.getElementById('imageResult');
+        const accessKey = 'YOUR_UNSPLASH_ACCESS_KEY';  // Replace with your Unsplash API key
+        const url = `https://api.unsplash.com/photos/random?query=${query}&client_id=${accessKey}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    imageElement.src = data[0].urls.regular;
+                    imageElement.style.display = "block";
+                } else {
+                    document.getElementById('response').textContent = "No image found for your request.";
+                }
+            });
+    }
+
+    // Start a number guessing game
+    function startGame() {
+        const gameContainer = document.getElementById('gameContainer');
+        gameContainer.style.display = "block";
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+        let attempts = 0;
+
+        window.checkGuess = function() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            attempts++;
+
+            if (guess === randomNumber) {
+                gameResult.textContent = `You guessed it right in ${attempts} attempts!`;
+            } else if (guess > randomNumber) {
+                gameResult.textContent = "Too high! Try again.";
+            } else {
+                gameResult.textContent = "Too low! Try again.";
+            }
+        };
+    }
+
+    // Function to navigate between pages
+    function navigate(direction) {
+        if (direction === 'next') {
+            console.log("Navigating to next page...");
+        } else if (direction === 'previous') {
+            console.log("Navigating to previous page...");
+        }
+    }
+</script>
+
+</body>
+</html>

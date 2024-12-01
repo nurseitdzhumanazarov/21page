@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2, h3 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px; /* Set height to a fixed value */
+            object-fit: cover; /* Ensure images fill the container without distortion */
+            display: block;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-top: 30px;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 25px;
+            background-color: #de8546;
+            color: white;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Nurseit Dzhumanazarov</h2>
+<h4>13 exercise</h4>
+<h3>Click on any image to view it in full size</h3>
+
+<!-- Gallery Section -->
+<div class="gallery-container">
+    <!-- Gallery Items with URLs -->
+    <div class="gallery-item">
+        <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/camping-on-top-of-the-mountain-during-sunset-free-photo.jpg?w=600&quality=80" alt="Image 1" onclick="openModal('https://i0.wp.com/picjumbo.com/wp-content/uploads/camping-on-top-of-the-mountain-during-sunset-free-photo.jpg?w=600&quality=80')">
+    </div>
+    <div class="gallery-item">
+        <img src="https://thumbs.dreamstime.com/b/red-white-camper-parked-front-fire-pit-quality-scene-set-forest-mountain-background-344803754.jpg" alt="Image 2" onclick="openModal('https://thumbs.dreamstime.com/b/red-white-camper-parked-front-fire-pit-quality-scene-set-forest-mountain-background-344803754.jpg')">
+    </div>
+    <div class="gallery-item">
+        <img src="https://st.depositphotos.com/2001755/3622/i/450/depositphotos_36220949-stock-photo-beautiful-landscape.jpg" alt="Image 3" onclick="openModal('https://st.depositphotos.com/2001755/3622/i/450/depositphotos_36220949-stock-photo-beautiful-landscape.jpg')">
+    </div>
+    <div class="gallery-item">
+        <img src="https://thumbs.dreamstime.com/b/bird-silhouette-sunset-falcon-perched-branch-golden-hour-winter-light-scenic-frame-nature-beauty-sky-251021456.jpg" alt="Image 4" onclick="openModal('https://thumbs.dreamstime.com/b/bird-silhouette-sunset-falcon-perched-branch-golden-hour-winter-light-scenic-frame-nature-beauty-sky-251021456.jpg')">
+    </div>
+    <!-- Add more photos as needed -->
+</div>
+
+<!-- Modal for Enlarged Image -->
+<div class="modal" id="modal">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <img id="modal-img" src="" alt="Enlarged Image">
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="navigation">
+    <a href="index12.html">Previous</a>
+    <a href="index14.html">Next</a>
+</div>
+
+<script>
+    function openModal(image) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        modal.style.display = 'flex';
+        modalImg.src = image;
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

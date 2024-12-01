@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My First Webpage</title>
+<style>
+   body {
+       background-color: rgba(237, 235, 213, 0.704);
+       margin: 0;
+       font-family: Arial, sans-serif;
+   }
+
+   h2, h3 {
+       text-align: center;
+   }
+
+   .navigation {
+       display: flex;
+       justify-content: space-between;
+       padding: 50px;
+   }
+
+   .navigation a {
+       text-decoration: none;
+       font-size: 16px;
+       padding: 10px 25px;
+       background-color: #de8546; /* Button color */
+       color: white;
+       border-radius: 59px;
+   }
+
+   .color-picker {
+       display: grid;
+       grid-template-columns: repeat(4, 50px);
+       gap: 10px;
+       justify-content: center;
+       margin-top: 20px;
+   }
+
+   .color-box {
+       width: 50px;
+       height: 50px;
+       border-radius: 5px;
+       cursor: pointer;
+       position: relative;
+   }
+
+   /* Hide color input initially */
+   #colorInput {
+       display: none;
+       position: absolute;
+   }
+</style>
+<script>
+   let selectedBox = null;
+
+   function showColorPicker(box) {
+       selectedBox = box;
+
+       // Create a hidden color input or reuse it if already created
+       let colorInput = document.getElementById('colorInput');
+       if (!colorInput) {
+           colorInput = document.createElement('input');
+           colorInput.id = 'colorInput';
+           colorInput.type = 'color';
+           colorInput.style.position = 'absolute';
+           colorInput.style.opacity = '0';  // Hide it visually
+           colorInput.oninput = applyColor; // Call applyColor on input change
+           document.body.appendChild(colorInput);
+       }
+
+       // Set the position of the color input to overlay the clicked box
+       colorInput.style.top = `${box.offsetTop + window.scrollY}px`;
+       colorInput.style.left = `${box.offsetLeft + window.scrollX}px`;
+
+       // Trigger the color input click to open the color picker
+       colorInput.click();
+   }
+
+   function applyColor(event) {
+       // Set the background color of the selected box to the chosen color
+       selectedBox.style.backgroundColor = event.target.value;
+   }
+</script>
+</head>
+<body>
+
+<h2>Dzhumanazarov Nurseit</h2>
+<h3>EXAMPLE 16</h3>
+
+<div class="navigation">
+    <a href="index15.html">Previous</a>
+    <a href="index17.html">Next</a>
+</div>
+
+<h3>Choose Your Color</h3>
+
+<div class="color-picker">
+    <div class="color-box" style="background-color: #f44336;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #e91e63;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #9c27b0;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #673ab7;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #3f51b5;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #2196f3;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #03a9f4;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #00bcd4;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #009688;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #4caf50;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #ffeb3b;" onclick="showColorPicker(this)"></div>
+    <div class="color-box" style="background-color: #ffc107;" onclick="showColorPicker(this)"></div>
+</div>
+
+</body>
+</html>

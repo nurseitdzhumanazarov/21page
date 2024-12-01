@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #87CEEB; /* blue Blue */
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: 20px;
+        }
+
+        .airplane-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/clouds.png') repeat-x;
+            animation: moveClouds 30s linear infinite;
+        }
+
+        .airplane {
+            position: absolute;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: auto;
+            animation: flyUp 15s ease-in-out infinite;
+        }
+
+        /* Animation to make airplane fly up */
+        @keyframes flyUp {
+            0% {
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                transform: translateX(-50%) translateY(-100vh);
+            }
+        }
+
+        /* Animation for clouds moving */
+        @keyframes moveClouds {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 0;
+            }
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-top: 30px;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 25px;
+            background-color: #de8546;
+            color: white;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Dzhumanazarov Nurseit</h2>
+<h4>14 Exercise</h4>
+<h3>Watch the Airplane Fly Into the Clouds</h3>
+
+<!-- Airplane and Clouds Animation -->
+<div class="airplane-container">
+    <!-- Clouds Background -->
+    <div class="clouds"></div>
+
+    <!-- Airplane Image (3D or Animated) -->
+    <img src="https://i.pinimg.com/474x/29/dc/31/29dc312d59df1952fca6c17e2abf4aad.jpg" alt="Airplane" class="airplane">
+</div>
+
+<!-- Navigation -->
+<div class="navigation">
+    <a href="index13.html">Previous</a>
+    <a href="index15.html">Next</a>
+</div>
+
+</body>
+</html>

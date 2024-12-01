@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .timer {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        .text-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-top: 30px;
+        }
+        .navigation a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 25px;
+            background-color: #de8546;
+            color: white;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="text-section">
+    <h2>Nurseit Dzhumanazarov</h2>
+    <h3>Exercise 19</h3>
+</div>
+
+<button id="startBtn">Start Recording</button>
+<button id="stopBtn" disabled>Stop Recording</button>
+<div class="timer" id="timer">0s</div>
+<audio id="audioPlayer" controls></audio>
+
+<div class="navigation">
+    <a href="index18.html">Previous</a>
+    <a href="index20.html">Next</a>
+</div>
+
+<script>
+    let mediaRecorder;
+    let audioChunks = [];
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const timerDisplay = document.getElementById("timer");
+    
+    let timer;
+    let seconds = 0;
+
+    // Request microphone access and start recording
+    startBtn.addEventListener("click", () => {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                
+                // Start recording
+                mediaRecorder.start();
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+
+                // Start the timer
+                timer = setInterval(() => {
+                    seconds++;
+                    timerDisplay.textContent = `${seconds}s`;
+                }, 1000);
+
+                mediaRecorder.addEventListener("dataavailable", event => {
+                    audioChunks.push(event.data);
+                });
+
+                mediaRecorder.addEventListener("stop", () => {
+                    clearInterval(timer); // Stop the timer
+                    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    audioPlayer.src = audioUrl;
+                    audioChunks = []; // Clear the chunks
+                });
+            })
+            .catch(error => {
+                alert("Error accessing the microphone: " + error);
+            });
+    });
+
+    // Stop recording and prepare the audio for playback
+    stopBtn.addEventListener("click", () => {
+        mediaRecorder.stop();
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+    });
+</script>
+
+</body>
+</html>

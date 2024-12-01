@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .chat-container {
+            background-color: #fff;
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            justify-content: space-between;
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background-color: #d1f7c4;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #f1f1f1;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .nav-button {
+            width: 48%;
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;  /* Added margin for spacing between buttons */
+        }
+
+        .nav-button:hover {
+            background-color: #45a049;
+        }
+
+        .header-text {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="header-text">
+    <div>Nurseit Dzhumanazarov</div>
+    <div>20 Exercise</div>
+</div>
+
+<div class="chat-container">
+    <div class="chat-box" id="chatBox"></div>
+    <input type="text" id="userInput" placeholder="Ask something..." />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<div class="navigation">
+    <a href="index19.html" class="nav-button">Previous</a>
+    <a href="index21.html" class="nav-button">Next</a>
+</div>
+
+<script>
+    // Predefined questions and answers
+    const qaList = [
+        { question: "What is your name?", answer: "I am Chatbot, here to assist you." },
+        { question: "How are you?", answer: "I'm doing great, thank you for asking!" },
+        { question: "What can you do?", answer: "I can answer your questions and help with various tasks." },
+        { question: "Where do you live?", answer: "I live on the internet!" },
+        { question: "What is 2 + 2?", answer: "The answer is 4." },
+        // Add up to 50 questions and answers here
+    ];
+
+    let currentIndex = 0; // Start with the first question
+
+    // Function to add a message to the chat box
+    function addMessage(message, sender) {
+        const chatBox = document.getElementById('chatBox');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', sender);
+        messageElement.textContent = message;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the latest message
+    }
+
+    // Function to send a message and get a response
+    function sendMessage() {
+        const userInput = document.getElementById('userInput').value;
+        
+        // Add user's message
+        if (userInput.trim() !== "") {
+            addMessage(userInput, 'user-message');
+            document.getElementById('userInput').value = ''; // Clear input field
+
+            // Simulate a slight delay for the bot response
+            setTimeout(() => {
+                let botResponse = getBotResponse(userInput);
+                addMessage(botResponse, 'bot-message');
+            }, 1000); // Delay for bot's response
+        }
+    }
+
+    // Function to get bot response based on predefined questions
+    function getBotResponse(userMessage) {
+        const currentQA = qaList[currentIndex];
+        const response = currentQA.answer; // Get the answer from predefined list
+        return response;
+    }
+
+    // Function to navigate to the next question
+    function nextQuestion() {
+        if (currentIndex < qaList.length - 1) {
+            currentIndex++;
+            addMessage(qaList[currentIndex].question, 'bot-message');
+        }
+    }
+
+    // Function to navigate to the previous question
+    function previousQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            addMessage(qaList[currentIndex].question, 'bot-message');
+        }
+    }
+
+    // Show the first question when the page loads
+    window.onload = function() {
+        addMessage(qaList[currentIndex].question, 'bot-message');
+    }
+
+    // Add event listener to handle "Enter" key press
+    document.getElementById('userInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage(); // Trigger the send message function when Enter is pressed
+        }
+    });
+
+</script>
+
+</body>
+</html>

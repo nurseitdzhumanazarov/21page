@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My First Webpage</title>
+<style>
+   body {
+       background-color: rgba(21, 21, 165, 0.704);
+       margin: 0;
+       font-family: Arial, sans-serif;
+       text-align: center;
+       padding: 20px;
+   }
+
+   h2, h3 {
+       margin: 10px 0;
+   }
+
+   .rank-container {
+       max-width: 600px;
+       margin: 0 auto;
+       text-align: left;
+   }
+
+   .rank {
+       margin-bottom: 20px;
+   }
+
+   .rank-label {
+       font-size: 18px;
+       margin-bottom: 5px;
+   }
+
+   .progress-bar {
+       background-color: #ccc;
+       border-radius: 20px;
+       overflow: hidden;
+       position: relative;
+       height: 30px;
+   }
+
+   .progress-bar-fill {
+       height: 100%;
+       border-radius: 20px;
+       text-align: center;
+       color: white;
+       font-weight: bold;
+       line-height: 30px;
+       transition: width 0.5s ease-in-out;
+   }
+
+   .input-container {
+       margin-top: 20px;
+   }
+
+   .input-container input {
+       width: 80px;
+       padding: 5px;
+       margin: 5px;
+       border-radius: 5px;
+       border: 1px solid #ccc;
+       font-size: 16px;
+   }
+
+   .navigation {
+       display: flex;
+       justify-content: space-between;
+       padding: 30px 50px;
+       max-width: 600px;
+       margin: 0 auto;
+   }
+
+   .navigation a {
+       text-decoration: none;
+       font-size: 16px;
+       padding: 10px 25px;
+       background-color: #de8546;
+       color: white;
+       border-radius: 59px;
+       transition: background-color 0.3s;
+   }
+
+   .navigation a:hover {
+       background-color: #c96b2b;
+   }
+</style>
+<script>
+   function updateRank(inputId, progressBarId) {
+       const input = document.getElementById(inputId);
+       const value = parseInt(input.value) || 0;
+
+       // Ensure percentage is within 0 to 100 range
+       const percent = Math.min(Math.max(value, 0), 100);
+
+       const progressBar = document.getElementById(progressBarId);
+       const fill = progressBar.querySelector('.progress-bar-fill');
+
+       // Update progress bar width and color
+       fill.style.width = percent + '%';
+       fill.style.backgroundColor = getProgressColor(percent);
+       fill.textContent = percent + '%';
+   }
+
+   function getProgressColor(percent) {
+       if (percent >= 75) return '#4caf50'; // Green
+       if (percent >= 50) return '#ffeb3b'; // Yellow
+       if (percent >= 25) return '#ff9800'; // Orange
+       return '#f44336'; // Red
+   }
+
+   window.onload = function() {
+       // Add event listeners to update progress bars as soon as input changes
+       for (let i = 1; i <= 5; i++) {
+           document.getElementById(`rank-input-${i}`).addEventListener('input', function() {
+               updateRank(`rank-input-${i}`, `progress-bar-${i}`);
+           });
+       }
+   };
+</script>
+</head>
+<body>
+
+<h2>Dzhumanazarov Nurseit</h2>
+<h3>EXAMPLE 15</h3>
+
+<div class="rank-container">
+   <!-- Rank 1 -->
+   <div class="rank">
+       <div class="rank-label">Rank 1:</div>
+       <div class="progress-bar" id="progress-bar-1">
+           <div class="progress-bar-fill" style="width: 0%;">0%</div>
+       </div>
+   </div>
+
+   <!-- Rank 2 -->
+   <div class="rank">
+       <div class="rank-label">Rank 2:</div>
+       <div class="progress-bar" id="progress-bar-2">
+           <div class="progress-bar-fill" style="width: 0%;">0%</div>
+       </div>
+   </div>
+
+   <!-- Rank 3 -->
+   <div class="rank">
+       <div class="rank-label">Rank 3:</div>
+       <div class="progress-bar" id="progress-bar-3">
+           <div class="progress-bar-fill" style="width: 0%;">0%</div>
+       </div>
+   </div>
+
+   <!-- Rank 4 -->
+   <div class="rank">
+       <div class="rank-label">Rank 4:</div>
+       <div class="progress-bar" id="progress-bar-4">
+           <div class="progress-bar-fill" style="width: 0%;">0%</div>
+       </div>
+   </div>
+
+   <!-- Rank 5 -->
+   <div class="rank">
+       <div class="rank-label">Rank 5:</div>
+       <div class="progress-bar" id="progress-bar-5">
+           <div class="progress-bar-fill" style="width: 0%;">0%</div>
+       </div>
+   </div>
+</div>
+
+<div class="input-container">
+   <div>
+       <label for="rank-input-1">Rank 1:</label>
+       <input type="number" id="rank-input-1" placeholder="0-100">
+   </div>
+   <div>
+       <label for="rank-input-2">Rank 2:</label>
+       <input type="number" id="rank-input-2" placeholder="0-100">
+   </div>
+   <div>
+       <label for="rank-input-3">Rank 3:</label>
+       <input type="number" id="rank-input-3" placeholder="0-100">
+   </div>
+   <div>
+       <label for="rank-input-4">Rank 4:</label>
+       <input type="number" id="rank-input-4" placeholder="0-100">
+   </div>
+   <div>
+       <label for="rank-input-5">Rank 5:</label>
+       <input type="number" id="rank-input-5" placeholder="0-100">
+   </div>
+</div>
+
+<!-- Navigation buttons -->
+<div class="navigation">
+    <a href="index14.html">Previous</a>
+    <a href="index16.html">Next</a>
+</div>
+
+</body>
+</html>

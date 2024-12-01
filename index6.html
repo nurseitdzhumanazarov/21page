@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My First Webpage</title>
+<style>
+    
+
+   body {
+       background-color: rgba(131, 208, 59, 0.704);
+       margin: 0;
+       font-family: Arial, sans-serif;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+       height: 100vh;
+   }
+ <h1 class="example-heading">Example 6</h1>
+   h1, h2, h3 {
+       text-align: center;
+       margin: 0;
+   }
+
+   /* Welcome Animation */
+   .welcome-text {
+       font-size: 36px;
+       color: #de8546;
+       font-weight: bold;
+       opacity: 0;
+       animation: fadeInOut 3s ease-in-out infinite;
+   }
+
+   @keyframes fadeInOut {
+       0%, 100% { opacity: 0; transform: translateY(20px); }
+       50% { opacity: 1; transform: translateY(0); }
+   }
+
+   .navigation {
+       display: flex;
+       justify-content: space-between;
+       width: 100%;
+       padding: 50px;
+       box-sizing: border-box;
+   }
+
+   .navigation a {
+       text-decoration: none;
+       font-size: 16px;
+       padding: 10px 25px;
+       background-color: #de8546;
+       color: white;
+       border-radius: 59px;
+       transition: background-color 0.3s;
+   }
+
+   .navigation a:hover {
+       background-color: #a64d1f;
+   }
+
+   /* Center Example 6 */
+   .example-heading {
+       font-size: 28px;
+       color: #333;
+       text-align: center;
+       font-weight: bold;
+       margin: 20px 0;
+   }
+   
+</style>
+</head>
+<body>
+
+<!-- Animated Welcome Text -->
+<div class="welcome-text">Welcome</div>
+
+<!-- Centered Example -->
+<h1 class="example-heading">Example 6</h1>
+
+<!-- Navigation buttons -->
+<div class="navigation">
+    <a href="index5.html">Previous</a>
+    <a href="index7.html">Next</a>
+</div>
+
+</body>
+</html>

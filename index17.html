@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgba(239, 239, 239, 0.704);
+        }
+
+        h2, h3 {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #25D366; /* WhatsApp-like green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #128C7E;
+        }
+
+        video {
+            margin-top: 30px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .text-section {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: red;  /* Changed color to red */
+            font-size: 18px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 20px;
+            width: 80%;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 25px;
+            background-color: #de8546;
+            color: white;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+<br>  <br>
+   <source media="(min-width: )" srcset="">
+    <img src="" alt="">
+</picture>
+<h2>Dzhumanazarov Nurseit</h2> 
+<h3>EXAMPLE WITH AUTOMATIC CAMERA & FILTER</h3>
+
+<!-- Text Content -->
+<div class="text-section">
+    
+    <p>EXAMPLE 17</p>
+</div>
+
+<!-- Button to start screen sharing -->
+<button onclick="startScreenShare()">Share Screen</button>
+
+<!-- Video element to display shared screen -->
+<video id="shared-screen" autoplay></video>
+
+<!-- Navigation buttons -->
+<div class="navigation">
+    <a href="index16.html">Previous</a>
+    <a href="index18.html">Next</a>
+</div>
+
+<script>
+    // Function to start screen sharing
+    async function startScreenShare() {
+        try {
+            // Get the user's screen using getDisplayMedia
+            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            
+            // Get the video element where the shared screen will be displayed
+            const videoElement = document.getElementById('shared-screen');
+            
+            // Set the source of the video element to the user's screen stream
+            videoElement.srcObject = stream;
+
+            // Handle the case where the user stops sharing their screen
+            stream.getVideoTracks()[0].onended = () => {
+                alert("Screen sharing stopped.");
+            };
+        } catch (err) {
+            console.error("Error accessing screen: ", err);
+            alert("Screen sharing failed. Please ensure your browser supports it.");
+        }
+    }
+</script>
+
+</body>
+</html>

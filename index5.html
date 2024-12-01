@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My First Webpage</title>
+<style>
+   body {
+       background-color: rgba(56, 151, 49, 0.275);
+       margin: 0;
+       font-family: Arial, sans-serif;
+   }
+
+   h2, h3 {
+       text-align: center;
+   }
+
+   .navigation {
+       display: flex;
+       justify-content: space-between;
+       padding: 50px;
+   }
+
+   .navigation a {
+       text-decoration: none;
+       font-size: 16px;
+       padding: 10px 25px;
+       background-color: #de8546; /* Button color */
+       color: white;
+       border-radius: 59px;
+   }
+
+   /* Grid styling */
+   .grid-container {
+       display: grid;
+       grid-template-columns: repeat(5, 1fr); /* First row with 5 columns */
+       gap: 2px;
+       width: 250px;
+       margin: 20px auto;
+   }
+
+   /* Additional styling for the second row */
+   .grid-container .second-row {
+       grid-column: span 7; /* Span 7 columns */
+       display: grid;
+       grid-template-columns: repeat(7, 1fr); /* Second row with 7 columns */
+   }
+
+   .grid-item {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       font-size: 30px;
+       font-weight: bold;
+       border: 1px solid black;
+       background-color: white;
+       height: 30px;
+   }
+
+   /* Snake styles */
+   .snake {
+       position: absolute;
+       top: 0;
+       left: 30;
+       width: 90px;
+       height: 15px;
+       background-color: yellow;
+       animation: moveSnake 5s linear infinite;
+   }
+
+   @keyframes moveSnake {
+       0% { transform: translate(0, 0); }
+       25% { transform: translate(90vw, 0); }
+       50% { transform: translate(90vw, 90vh); }
+       75% { transform: translate(0, 90vh); }
+       100% { transform: translate(0, 0); }
+   }
+</style>
+</head>
+<body>
+
+<h2>Dzhumanazarov Nurseit</h2>
+<h3>EXAMPLE 5</h3>
+
+<!-- Snake animation -->
+<div class="snake"></div>
+
+<!-- Navigation buttons -->
+<div class="navigation">
+    <a href="index4.html">Previous</a>
+    <a href="index6.html">Next</a>
+</div>
+
+<!-- Number Grid with 2 rows: first row 5 items, second row 7 items -->
+<div class="grid-container">
+    <!-- First row with 5 items -->
+    <div class="grid-item">L</div>
+    <div class="grid-item">i</div>
+    <div class="grid-item">g</div>
+    <div class="grid-item">h</div>
+    <div class="grid-item">t</div>
+
+    <!-- Second row with 7 items -->
+    <div class="second-row">
+        <div class="grid-item">C</div>
+        <div class="grid-item">o</div>
+        <div class="grid-item">l</div>
+        <div class="grid-item">l</div>
+        <div class="grid-item">e</div>
+        <div class="grid-item">g</div>
+        <div class="grid-item">e</div>
+    </div>
+</div>
+
+</body>
+</html>
